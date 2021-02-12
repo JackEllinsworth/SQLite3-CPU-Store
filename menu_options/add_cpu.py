@@ -14,7 +14,9 @@ def send_menu(conn):
             str_type = "real"
 
         response = menu.create_menu_reply("STEP " + str(i + 1) + ": " +
-                                          CPU_OPTIONS[i], "Please reply with the value: " + CPU_OPTIONS[i], str_type)
+                                          CPU_OPTIONS[i], "Please reply with the value: " + CPU_OPTIONS[i], str_type, True)
+        if response == "menu": return
+
         responses.append(response)
 
     conn.execute("INSERT INTO TYPES (NAME,CLOCK_SPEED,CORES,CACHE_SIZE,PRICE) \

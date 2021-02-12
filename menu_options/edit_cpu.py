@@ -6,16 +6,19 @@ DEFINED_OPTIONS = ["name", "clock_speed", "cores", "cache_size", "price"]
 
 
 def send_menu(conn):
-    response = menu.create_menu_reply("EDIT CPU MENU", "Please reply with the CPU name you want to edit", "string")
+    response = menu.create_menu_reply("EDIT CPU MENU", "Please reply with the CPU name you want to edit", "string", True)
+    if response == "menu": return
 
     choice = menu.create_menu_option("OPTION TO CHANGE", CPU_OPTIONS)
+    if choice == "menu": return
 
     str_type = "string"
 
     if CPU_OPTIONS[int(choice-1)] in CPU_REAL_ONLY:
         str_type = "real"
 
-    new_value = menu.create_menu_reply("UPDATED VALUE", "Please reply with the new value for " + CPU_OPTIONS[int(choice-1)], str_type)
+    new_value = menu.create_menu_reply("UPDATED VALUE", "Please reply with the new value for " + CPU_OPTIONS[int(choice-1)], str_type, True)
+    if new_value == "menu": return
 
     cursor = conn.execute("""UPDATE TYPES SET """ + DEFINED_OPTIONS[int(choice-1)] + """ = ? WHERE NAME = ?""", (new_value, response))
 

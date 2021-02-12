@@ -5,11 +5,11 @@ from menu_options import find_cpu
 from menu_options import remove_cpu
 
 
-MENU_OPTIONS = ["Add new CPU", "Edit previous CPU", "Find previous CPU", "Remove previous CPU"]
+MENU_OPTIONS = ["Add new CPU", "Edit previous CPU", "Find previous CPU", "Remove previous CPU", "Exit"]
 
 
 def send_menu(conn):
-    response = menu.create_menu_option("MAIN MENU", MENU_OPTIONS)
+    response = menu.create_menu_option("MAIN MENU", MENU_OPTIONS, False)
 
     if response == 1:
         add_cpu.send_menu(conn)
@@ -19,6 +19,9 @@ def send_menu(conn):
         find_cpu.send_menu(conn)
     elif response == 4:
         remove_cpu.send_menu(conn)
+    elif response == 5:
+        print("Closing...")
+        exit()
 
     send_menu(conn)
 

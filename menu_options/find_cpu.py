@@ -5,7 +5,9 @@ MENU_OPTIONS = ["Send all", "Find one by name"]
 
 
 def send_menu(conn):
-    response = menu.create_menu_option("FIND CPU MENU", MENU_OPTIONS)
+    response = menu.create_menu_option("FIND CPU MENU", MENU_OPTIONS, True)
+
+    if response == "menu": return
 
     if response == 1:
         cursor = conn.execute("SELECT id, name, clock_speed, cores, cache_size, price from TYPES")
@@ -19,7 +21,7 @@ def send_menu(conn):
             print("PRICE -", row[5])
 
     elif response == 2:
-        response = menu.create_menu_reply("FIND CPU BY NAME", "Send the name of the CPU you want to find", "string")
+        response = menu.create_menu_reply("FIND CPU BY NAME", "Send the name of the CPU you want to find", "string", True)
 
         cursor = conn.execute("""SELECT id, name, clock_speed, cores, cache_size, price from TYPES WHERE name = ?""", (response,))
         found = False
