@@ -17,8 +17,13 @@ def send_menu(conn):
 
     new_value = menu.create_menu_reply("UPDATED VALUE", "Please reply with the new value for " + CPU_OPTIONS[int(choice-1)], str_type)
 
-    conn.execute("""UPDATE TYPES SET """ + DEFINED_OPTIONS[int(choice-1)] + """ = ? WHERE NAME = ?""", (new_value, response))
-    conn.commit()
+    cursor = conn.execute("""UPDATE TYPES SET """ + DEFINED_OPTIONS[int(choice-1)] + """ = ? WHERE NAME = ?""", (new_value, response))
 
-    print("Updated any CPU's matching that name with the new value.")
+    if cursor.rowcount < 1:
+        print("Error finding CPU's matching the name specified.")
+    else:
+        conn.commit()
+        print("Updated any CPU's matching that name with the new value.")
+
+
     return
