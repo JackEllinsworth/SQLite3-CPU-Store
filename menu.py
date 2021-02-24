@@ -9,6 +9,7 @@ MENU_OPTIONS = ["Add new CPU", "Edit previous CPU", "Find previous CPU", "Remove
 
 
 def send_menu(conn):
+    # Retrieves response
     response = menu.create_menu_option("MAIN MENU", MENU_OPTIONS, False)
 
     if response == 1:
@@ -23,5 +24,6 @@ def send_menu(conn):
         print("Closing...")
         exit()
 
+    # Creates default menu once finished.
     send_menu(conn)
 
